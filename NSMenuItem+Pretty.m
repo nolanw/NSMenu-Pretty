@@ -49,6 +49,7 @@ BOOL IsPrettySeparator(NSString *item)
     NSMenuItem *item = [NSMenuItem new];
     item.title = [itemParts objectAtIndex:0];
     item.action = action;
+    [item setAlternate:isAlternate];
     if (itemParts.count == 1)
         return item;
     

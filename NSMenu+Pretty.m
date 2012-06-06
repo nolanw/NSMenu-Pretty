@@ -17,10 +17,10 @@
     va_start(args, firstArg);
     for (id arg = firstArg; arg != nil; arg = va_arg(args, id))
     {
-        BOOL alternate = NO;
+        BOOL isAlternate = NO;
         if (arg == PRETTY_ALTERNATE)
         {
-            alternate = YES;
+            isAlternate = YES;
             arg = va_arg(args, id);
         }
         if ([arg isKindOfClass:[NSString class]])
@@ -30,7 +30,7 @@
             else
                 [menu nw_addMenuItemWithString:arg
                                         action:va_arg(args, SEL)
-                                   isAlternate:alternate];
+                                   isAlternate:isAlternate];
         }
         else if ([arg isKindOfClass:[NSMenu class]])
             [menu nw_addSubmenu:arg];
