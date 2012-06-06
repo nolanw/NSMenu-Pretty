@@ -33,6 +33,13 @@ BOOL IsPrettySeparator(NSString *item)
 
 + (NSMenuItem *)nw_menuItemWithString:(NSString *)string action:(SEL)action
 {
+    return [self nw_menuItemWithString:string action:action isAlternate:NO];
+}
+
++ (NSMenuItem *)nw_menuItemWithString:(NSString *)string
+                               action:(SEL)action
+                          isAlternate:(BOOL)isAlternate
+{
     if (IsPrettySeparator(string))
         return [NSMenuItem separatorItem];
     

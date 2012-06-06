@@ -17,12 +17,20 @@
     va_start(args, firstArg);
     for (id arg = firstArg; arg != nil; arg = va_arg(args, id))
     {
+        BOOL alternate = NO;
+        if (arg == PRETTY_ALTERNATE)
+        {
+            alternate = YES;
+            arg = va_arg(args, id);
+        }
         if ([arg isKindOfClass:[NSString class]])
         {
             if (IsPrettySeparator(arg))
                 [menu nw_addMenuItemWithString:arg];
             else
-                [menu nw_addMenuItemWithString:arg action:va_arg(args, SEL)];
+                [menu nw_addMenuItemWithString:arg
+                                        action:va_arg(args, SEL)
+                                   isAlternate:alternate];
         }
         else if ([arg isKindOfClass:[NSMenu class]])
             [menu nw_addSubmenu:arg];
@@ -43,8 +51,16 @@
 
 - (NSMenuItem *)nw_addMenuItemWithString:(NSString *)string action:(SEL)action
 {
+    return [self nw_addMenuItemWithString:string action:action isAlternate:NO];
+}
+
+- (NSMenuItem *)nw_addMenuItemWithString:(NSString *)string
+                                  action:(SEL)action
+                             isAlternate:(BOOL)isAlternate
+{
     NSMenuItem *menuItem = [NSMenuItem nw_menuItemWithString:string
-                                                      action:action];
+                                                      action:action
+                                                 isAlternate:isAlternate];
     if (menuItem)
         [self addItem:menuItem];
     return menuItem;
@@ -63,5 +79,7 @@
 {
     [self nw_addMenuItemWithString:menu.title].submenu = menu;
 }
+
+NSString * const PRETTY_ALTERNATE = @"Next item is an alternate";
 
 @end

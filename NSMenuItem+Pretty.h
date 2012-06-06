@@ -25,6 +25,11 @@
 // Same as above with an action too.
 + (NSMenuItem *)nw_menuItemWithString:(NSString *)string action:(SEL)action;
 
+// Same as above but may be an alternate menu item.
++ (NSMenuItem *)nw_menuItemWithString:(NSString *)string
+                               action:(SEL)action
+                          isAlternate:(BOOL)isAlternate;
+
 // Returns YES if the menu item string should parse as a separator.
 extern BOOL IsPrettySeparator(NSString *item);
 
